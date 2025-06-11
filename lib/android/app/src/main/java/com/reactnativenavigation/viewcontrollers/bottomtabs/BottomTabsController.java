@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.graphics.Insets;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
@@ -302,6 +304,13 @@ public class BottomTabsController extends ParentController<BottomTabsLayout> imp
 
     public Animator getPopAnimation(Options appearingOptions, Options disappearingOptions) {
         return presenter.getPopAnimation(appearingOptions, disappearingOptions);
+    }
+
+    @Override
+    protected WindowInsetsCompat onApplyWindowInsets(View view, WindowInsetsCompat insets) {
+        Insets sysInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+        view.setPaddingRelative(0, 0, 0, sysInsets.bottom);
+        return WindowInsetsCompat.CONSUMED;
     }
 
     @RestrictTo(RestrictTo.Scope.TESTS)
